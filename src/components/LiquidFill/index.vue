@@ -3,7 +3,6 @@
 </template>
 
 <script>
-  import commonDataMixin from '../../mixins/commonDataMixin'
   function getColor(value) {
     return value > 0 && value <= 0.5 ? 'rgba(97,216,0,.7)'
       : value > 0.5 && value <= 0.8 ? 'rgba(204,178,26,.7)'
@@ -11,17 +10,20 @@
   }
 
   export default {
-    mixins: [commonDataMixin],
-    watch: {
-      userGrowthLastMonth() {
-        this.chartData = {
+    data() {
+      return {
+        chartData: {
           columns: ['title', 'percent'],
           rows: [{
             title: '用户月同比增长',
-            percent: this.userGrowthLastMonth / 100
+            percent: 0.90
           }]
-        }
-        this.chartSettings = {
+        },
+        chartSettings: {}
+      }
+    },
+    mounted () {
+      this.chartSettings = {
           seriesMap: {
             用户月同比增长: {
               radius: '80%',
@@ -59,13 +61,6 @@
             }
           }
         }
-      }
-    },
-    data() {
-      return {
-        chartData: {},
-        chartSettings: {}
-      }
     }
   }
 </script>
